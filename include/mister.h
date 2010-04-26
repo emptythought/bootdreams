@@ -17,3 +17,21 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+typedef struct {
+    char id[2];
+    WORD size;
+    char crap0[6];
+    WORD offset;
+    char crap1[2];
+    WORD width;
+    char crap2[2];
+    WORD height;
+    char crap3[6];
+    WORD colors;
+    char crap4[2];
+    char palette;
+    char compbitmap;
+} typemr;
+
+int read_mr(char *mr);
+int display_mr();
