@@ -17,11 +17,11 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-typedef stuct {
-    int unscrambled
-    int sh_elf
-    int scrambled
-} typembf
+/* static const */ char *typembf[] = {
+    unscrambled,
+    sh_elf,
+    scrambled
+};
 
 typembf read_mbf(char *mbf);
 typebsf read_bsf(char *bsf);

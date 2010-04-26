@@ -30,8 +30,8 @@ typedef struct {
     WORD colors;
     char crap4[2];
     char palette;
-    char compbitmap;
+    char bitmap;
 } typemr;
 
-int read_mr(char *mr);
+int read_mr(char *mrf);
 int display_mr();
