@@ -17,7 +17,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#define MAX_SIZE_USER_MR 8192 /* the second bootstrap is 10208 bytes */
+#define MAX_SIZE_USER_MR 8192 /* the second bootstrap is ~10208 bytes 
+(bleem!cast's Mister is 12733 bytes */
 
 typedef struct {
     char id[2];
