@@ -23,7 +23,7 @@
     scrambled
 };
 
-#define MAX_SIZE_USER_MR 8192
+#define MAX_SIZE_USER_MR 8192 /* the second bootstrap is 10208 bytes */
 
 typedef struct {
     char hardware_id[16]; /* always "SEGA SEGAKATANA " */
