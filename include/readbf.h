@@ -28,15 +28,35 @@ typedef struct {
     char maker_id[16]; /* always "SEGA ENTERPRISES" */
     /* device_information
     area_symbols
-    //peripherals
-    product_id[10]
-    product_version[5]
-    release_date[8]
-    boot_filname[16]
-    company_name[16]
-    software_name[128]
     */
-} typebsf;
+    int mouse
+    int gun
+    int keyboard
+    int expand_analog_vert
+    int expand_analog_hor
+    int analog_vert_controller
+    int analog_hor_controller
+    int analog_l_trigger
+    int analog_r_trigger
+    int expand_dir_buttons
+    int z_button
+    int y_button
+    int x_button
+    int d_button
+    int c_button
+    int start_abdir_buttons
+    int memory_card
+    int microphone_card
+    int purpuru_card
+    int other_card
+    int vga_box
+    int windowsce
+    char product_id[10]
+    char product_version[5]
+    char release_date[8]
+    char boot_filname[16]
+    char company_name[16]
+    char software_name[128]} typebsf;
 
 typembf read_mbf(char *mbf);
 typebsf read_bsf(char *bsf);
