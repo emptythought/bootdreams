@@ -26,9 +26,8 @@
 typedef struct {
     char hardware_id[16]; /* always "SEGA SEGAKATANA " */
     char maker_id[16]; /* always "SEGA ENTERPRISES" */
-    /* device_information
-    area_symbols
-    */
+    char device_information[18]
+    char area_symbols[8]
     int mouse
     int gun
     int keyboard
@@ -52,7 +51,7 @@ typedef struct {
     int vga_box
     int windowsce
     char product_id[10]
-    char product_version[5]
+    char product_version[6]
     char release_date[8]
     char boot_filname[16]
     char company_name[16]
