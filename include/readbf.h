@@ -56,7 +56,8 @@ typedef struct {
     char release_date[8]
     char boot_filname[16]
     char company_name[16]
-    char software_name[128]} typebsf;
+    char software_name[128]
+} typebsf;
 
 typembf read_mbf(char *mbf);
 typebsf read_bsf(char *bsf);
