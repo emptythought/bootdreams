@@ -17,6 +17,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#define MAX_SIZE_USER_MR 8192
+
 typedef struct {
     char id[2];
     WORD size;
