@@ -23,5 +23,20 @@
     scrambled
 };
 
+typedef struct {
+    char hardware_id[16]; /* always "SEGA SEGAKATANA " */
+    char maker_id[16]; /* always "SEGA ENTERPRISES" */
+    /* device_information
+    area_symbols
+    //peripherals
+    product_number
+    product_version
+    release_date
+    boot_filname
+    copy_name
+    software_name
+    */
+} typebsf;
+
 typembf read_mbf(char *mbf);
 typebsf read_bsf(char *bsf);
