@@ -29,12 +29,12 @@ typedef struct {
     /* device_information
     area_symbols
     //peripherals
-    product_number
-    product_version
-    release_date
-    boot_filname
-    copy_name
-    software_name
+    product_id[10]
+    product_version[5]
+    release_date[8]
+    boot_filname[16]
+    company_name[16]
+    software_name[128]
     */
 } typebsf;
 
