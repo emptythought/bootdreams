@@ -23,6 +23,8 @@
     scrambled
 };
 
+#define MAX_SIZE_USER_MR 8192
+
 typedef struct {
     char hardware_id[16]; /* always "SEGA SEGAKATANA " */
     char maker_id[16]; /* always "SEGA ENTERPRISES" */
@@ -55,7 +57,9 @@ typedef struct {
     char release_date[8]
     char boot_filname[16]
     char company_name[16]
-    char software_name[128]
+    char mr_sega[4311]
+    char mr_trademark[299]
+    char mr_user[MAX_SIZE_USER_MR]
 } typebsf;
 
 typembf read_mbf(char *mbf);
