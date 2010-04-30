@@ -17,4 +17,18 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+int read_mbf(char *mbf)	{
+    char alphabet[] = "abcdefghijklmnopqrstuvwxyz"; /* UC & LC */
+    char number0[] = "0123456789";
+    char number1[] = "1234567890";
+    char sh_elf[] = 0x127 & "ELF";
+    char netbsd[] = "$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
+    char dreamsnes[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789-";
+
+/* char temp[] = "#...'...*...-.../...2...4...7...9...;...=...?...A...C...E...G...I...J...L...N...O...Q...R...T...U...W...X...Z..."; */
+/* char temp2[] = "0123456789abcdef....(null)..0123456789ABCDEF"; */
+/* char punch[] = "PORTDEV INFOENBLSTATRADRTOUTDRQCFUNCEND"; */
+/* char tetris[] = "abcdefghijklEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()"; */
+/* char bortmnt[] = "0123456789ABCDEF....Inf.NaN.0123456789abcdef....(null)..."; */
+}
