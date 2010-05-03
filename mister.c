@@ -22,7 +22,7 @@
 int read_mr(char *mrf)	{
     typemr mr;
 
-    input = fs_open("/rd/mrtest.mr", O_RDONLY);
+    input = fs_open(mrf, O_RDONLY);
     if(input == -1)
         return -1;
 
