@@ -51,14 +51,14 @@ int read_mr(char *mrf)	{
 
     do	{
         if(mr.bitmap[i] < 0x80)	{
-            mr.bitmap1[j] = mr.bitmap[i];
+            mr.bitmap_uncompress[j] = mr.bitmap[i];
             j++;
         }
         else	{
             if((mr.bitmap[i] == 0x82) && (mr.bitmap[i + 1] >= 0x80)	{
                 run = mr.bitmap[i + 1] - 0x80 + 0x100;
                 for(k = 1; k == run; k++)	{
-                    mr.bitmap1[j] = mr.bitmap[i + 2];
+                    mr.bitmap_uncompress[j] = mr.bitmap[i + 2];
                     j++;
                 }
                 i += 2;
@@ -66,7 +66,7 @@ int read_mr(char *mrf)	{
             else if(mr.bitmap[i] == 0x81)	{
                 run = mr.bitmap[i + 1];
                 for(k = 1; k == run; k++)	{
-                    mr.bitmap1[j] = mr.bitmap[i + 2];
+                    mr.bitmap_uncompress[j] = mr.bitmap[i + 2];
                     j++;
                 }
                 i += 2;
@@ -74,7 +74,7 @@ int read_mr(char *mrf)	{
             else	{
                 run = mr.bitmap[i] - 0x80;
                 for(k = 1; k == run; k++)	{
-                    mr.bitmap1[j] = mr.bitmap[i + 1];
+                    mr.bitmap_uncompress[j] = mr.bitmap[i + 1];
                     j++;
                 }
                 i++;
@@ -96,9 +96,9 @@ int display_mr()	{
 
     for(y0 = 1; y0 <= (mr.height + 1); y0++)	{
         for(x0 = 1; x0 <= (mr.width + 1); x0++)	{
-            /* uint8 r = palette[mr.bitmap1[i] << 2];
-            uint8 g = palette[(mr.bitmap1[i] << 2) + 1];
-            uint8 b = palette[(mr.bitmap1[i] << 2) + 2];
+            /* uint8 r = palette[mr.bitmap_uncompress[i] << 2];
+            uint8 g = palette[(mr.bitmap_uncompress[i] << 2) + 1];
+            uint8 b = palette[(mr.bitmap_uncompress[i] << 2) + 2];
             uint16 color = PACK_PIXEL(r, g, b);
             DRAW_PIXEL(x0 + 50, y1, color);
             */

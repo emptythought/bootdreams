@@ -46,7 +46,7 @@ typedef struct {
     char crap4[2];
     char palette[MAX_COLORS_MR * 4];
     char bitmap[MAX_SIZE_USER_MR - 1];
-    /* char bitmap1[WIDTH_USER_MR * HEIGHT_USER_MR]; */ /* Uncompressed */
+    char bitmap_uncompress[WIDTH_USER_MR * HEIGHT_USER_MR]; /* Uncompressed */
 } typemr;
 
 int read_mr(char *mrf);
