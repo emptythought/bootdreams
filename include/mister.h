@@ -24,7 +24,7 @@
 #define WIDTH_USER_MR 320
 
 typedef struct {
-    char mr[MAX_SIZER_USER_MR];
+    char mr[MAX_SIZE_USER_MR];
     char id[2];
     WORD size;
     char crap0[6];
@@ -37,7 +37,7 @@ typedef struct {
     WORD colors;
     char crap4[2];
     char palette[MAX_COLORS_MR * 4];
-    char bitmap0[];
+    char bitmap0[MAX_SIZE_USER_MR - 1];
     char bitmap1[WIDTH_USER_MR * HEIGHT_USER_MR]; /* Uncompressed */
 } typemr;
 
