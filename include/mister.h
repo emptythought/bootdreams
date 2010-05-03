@@ -17,8 +17,11 @@
     along with BootDreams.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#define MAX_COLORS_MR 127
 #define MAX_SIZE_USER_MR 8192 /* the second bootstrap is ~10208 bytes 
 (bleem!cast's Mister is 12733 bytes) */
+#define HEIGHT_USER_MR 90
+#define WIDTH_USER_MR 320
 
 typedef struct {
     char id[2];
@@ -32,8 +35,9 @@ typedef struct {
     char crap3[6];
     WORD colors;
     char crap4[2];
-    char palette;
-    char bitmap;
+    char palette[MAX_COLORS_MR * 4];
+    char bitmap0[];
+    char bitmap1[WIDTH_USER_MR * HEIGHT_USER_MR]; /* Uncompressed */
 } typemr;
 
 int read_mr(char *mrf);

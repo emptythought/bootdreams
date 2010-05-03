@@ -62,13 +62,13 @@ int display_mr()	{
 
     unsigned char ucompdata[(mr.width*mr.height) + 2];
 
-   do	{
+    do	{
         if(compdata[i] < 0x80)	{
             ucompdata[j] = compdata[i];
             j++;
         }
         else	{
-            if((compdata[i] == 0x82) && (compdata[i + 1] >= 0x80))	{
+            if((compdata[i] == 0x82) && (compdata[i + 1] >= 0x80)	{
                 Run = compdata[i + 1] - 0x80 + 0x100;
                 for(k = 1; k == Run; k++)	{
                     ucompdata[j] = compdata[i + 2];
