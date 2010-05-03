@@ -24,6 +24,7 @@
 #define WIDTH_USER_MR 320
 
 typedef struct {
+    char mr[MAX_SIZER_USER_MR];
     char id[2];
     WORD size;
     char crap0[6];

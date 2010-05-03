@@ -23,52 +23,27 @@ int read_mr(char *mrf)	{
     typemr mr;
 
     input = fs_open(mrf, O_RDONLY);
-    if(input == -1)
+    if(mr.mr  == -1)
         return -1;
 
-    fs_read(input, mr.id, sizeof(mr.id));
+    fs_read(mr.mr, mr.id, sizeof(mr.id));
 
     if(memcmp(mr.id, MR_ID, sizeof(mr.id)))
         return -1;
 
-    fs_read(input, &mr.size, sizeof(mr.size));
-    fs_read(input, mr.crap0, sizeof(mr.crap0));
-    fs_read(input, &mr.offset, sizeof(mr.offset));
-    unsigned char bitmap0[mr.size - mr.offset];
-    unsigned char bitmap1[(mr.width * mr.height) + 2];
-    fs_read(input, mr.crap1, sizeof(mr.crap1));
-    fs_read(input, &mr.width, sizeof(mr.width));
-    fs_read(input, mr.crap2, sizeof(mr.crap2));
-    fs_read(input, &mr.height, sizeof(mr.height));
-    fs_read(input, mr.crap3, sizeof(mr.crap3));
-    fs_read(input, &mr.colors, sizeof(mr.colors));
-    unsigned char palette[mr.colors * 4];
-    fs_read(input, mr.crap4, sizeof(mr.crap4));
-    fs_read(input, palette, mr.colors * 4);
-    fs_read(input, bitmap0, mr.size - mr.offset);
-
-
-    /*
-    sprintf(myString, "%d", mr.size);
-    bfont_draw_str(vram_s + 140*640+50, 640, 0, "Size  : ");
-    bfont_draw_str(vram_s + 140*640+146, 640, 0, myString);
-
-    sprintf(myString, "%d", mr.offset);
-    bfont_draw_str(vram_s + 165*640+50, 640, 0, "Offset: ");
-    bfont_draw_str(vram_s + 165*640+146, 640, 0, myString);
-
-    sprintf(myString, "%d", mr.width);
-    bfont_draw_str(vram_s + 190*640+50, 640, 0, "Width : ");
-    bfont_draw_str(vram_s + 190*640+146, 640, 0, myString);
-
-    sprintf(myString, "%d", mr.height);
-    bfont_draw_str(vram_s + 215*640+50, 640, 0, "Height: ");
-    bfont_draw_str(vram_s + 215*640+146, 640, 0, myString);
-
-    sprintf(myString, "%d", mr.colors);
-    bfont_draw_str(vram_s + 240*640+50, 640, 0, "Colors: ");
-    bfont_draw_str(vram_s + 240*640+146, 640, 0, myString);
-    */
+    fs_read(mr.mr, &mr.size, sizeof(mr.size));
+    fs_read(mr.mr, mr.crap0, sizeof(mr.crap0));
+    fs_read(mr.mr, &mr.offset, sizeof(mr.offset));
+    /* unsigned char bitmap0[mr.size - mr.offset]; */
+    fs_read(mr.mr, mr.crap1, sizeof(mr.crap1));
+    fs_read(mr.mr, &mr.width, sizeof(mr.width));
+    fs_read(mr.mr, mr.crap2, sizeof(mr.crap2));
+    fs_read(mr.mr, &mr.height, sizeof(mr.height));
+    fs_read(mr.mr, mr.crap3, sizeof(mr.crap3));
+    fs_read(mr.mr, &mr.colors, sizeof(mr.colors));
+    fs_read(mr.mr, mr.crap4, sizeof(mr.crap4));
+    fs_read(mr.mr, palette, mr.colors * 4);
+    fs_read(mr.mr, bitmap0, mr.size - mr.offset);
 
     fs_close(input);
 
@@ -77,14 +52,15 @@ int read_mr(char *mrf)	{
 
 int display_mr()	{
     typemr mr;
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    int x0;
+    int y0;
+    int x1 = 50;
+    int y1 = 25;
 
-    /* char Run;
-    char myString[100];
-    int input;
-    int i=0, j=0, k=0;
-    int x1, y1;
-    int x2=50, y2=25;
-    */
+    /* char Run; */
 
     do	{
         if(compdata[i] < 0x80)	{
@@ -122,18 +98,18 @@ int display_mr()	{
 
     i = 0;
 
-    for(y1 = 1; y1 <= (mr.height + 1); y1++)	{
-        for(x1 = 1; x1 <= (mr.width + 1); x1++)	{
+    for(y0 = 1; y0 <= (mr.height + 1); y0++)	{
+        for(x0 = 1; x0 <= (mr.width + 1); x0++)	{
             /* uint8 r = palette[ucompdata[i] << 2];
             uint8 g = palette[(ucompdata[i] << 2) + 1];
             uint8 b = palette[(ucompdata[i] << 2) + 2];
             uint16 color = PACK_PIXEL(r, g, b);
-            DRAW_PIXEL(x1 + 50, y2, color);
+            DRAW_PIXEL(x0 + 50, y1, color);
             */
             i++;
-            x2++;
+            x1++;
         }
-        y2++;
+        y1++;
     }
 
     return 0;
