@@ -47,34 +47,34 @@ int read_mr(char *mrf)	{
     fs_read(mr.mr, &mr.colors, sizeof(mr.colors));
     fs_read(mr.mr, mr.crap4, sizeof(mr.crap4));
     fs_read(mr.mr, palette, mr.colors * 4);
-    fs_read(mr.mr, bitmap0, mr.size - mr.offset);
+    fs_read(mr.mr, bitmap, mr.size - mr.offset);
 
     do	{
-        if(mr.bitmap0[i] < 0x80)	{
-            mr.bitmap1[j] = mr.bitmap0[i];
+        if(mr.bitmap[i] < 0x80)	{
+            mr.bitmap1[j] = mr.bitmap[i];
             j++;
         }
         else	{
-            if((mr.bitmap0[i] == 0x82) && (mr.bitmap0[i + 1] >= 0x80)	{
-                run = mr.bitmap0[i + 1] - 0x80 + 0x100;
+            if((mr.bitmap[i] == 0x82) && (mr.bitmap[i + 1] >= 0x80)	{
+                run = mr.bitmap[i + 1] - 0x80 + 0x100;
                 for(k = 1; k == run; k++)	{
-                    mr.bitmap1[j] = mr.bitmap0[i + 2];
+                    mr.bitmap1[j] = mr.bitmap[i + 2];
                     j++;
                 }
                 i += 2;
             }
-            else if(mr.bitmap0[i] == 0x81)	{
-                run = mr.bitmap0[i + 1];
+            else if(mr.bitmap[i] == 0x81)	{
+                run = mr.bitmap[i + 1];
                 for(k = 1; k == run; k++)	{
-                    mr.bitmap1[j] = mr.bitmap0[i + 2];
+                    mr.bitmap1[j] = mr.bitmap[i + 2];
                     j++;
                 }
                 i += 2;
             }
             else	{
-                run = mr.bitmap0[i] - 0x80;
+                run = mr.bitmap[i] - 0x80;
                 for(k = 1; k == run; k++)	{
-                    mr.bitmap1[j] = mr.bitmap0[i + 1];
+                    mr.bitmap1[j] = mr.bitmap[i + 1];
                     j++;
                 }
                 i++;
