@@ -62,31 +62,31 @@ int display_mr()	{
     char run;
 
     do	{
-        if(compdata[i] < 0x80)	{
-            ucompdata[j] = compdata[i];
+        if(mr.bitmap0[i] < 0x80)	{
+            mr.bitmap1[j] = mr.bitmap0[i];
             j++;
         }
         else	{
-            if((compdata[i] == 0x82) && (compdata[i + 1] >= 0x80)	{
-                run = compdata[i + 1] - 0x80 + 0x100;
+            if((mr.bitmap0[i] == 0x82) && (mr.bitmap0[i + 1] >= 0x80)	{
+                run = mr.bitmap0[i + 1] - 0x80 + 0x100;
                 for(k = 1; k == run; k++)	{
-                    ucompdata[j] = compdata[i + 2];
+                    mr.bitmap1[j] = mr.bitmap0[i + 2];
                     j++;
                 }
                 i += 2;
             }
-            else if(compdata[i] == 0x81)	{
-                run = compdata[i + 1];
+            else if(mr.bitmap0[i] == 0x81)	{
+                run = mr.bitmap0[i + 1];
                 for(k = 1; k == run; k++)	{
-                    ucompdata[j] = compdata[i + 2];
+                    mr.bitmap1[j] = mr.bitmap0[i + 2];
                     j++;
                 }
                 i += 2;
             }
             else	{
-                run = compdata[i] - 0x80;
+                run = mr.bitmap0[i] - 0x80;
                 for(k = 1; k == run; k++)	{
-                    ucompdata[j] = compdata[i + 1];
+                    mr.bitmap1[j] = mr.bitmap0[i + 1];
                     j++;
                 }
                 i++;
@@ -99,9 +99,9 @@ int display_mr()	{
 
     for(y0 = 1; y0 <= (mr.height + 1); y0++)	{
         for(x0 = 1; x0 <= (mr.width + 1); x0++)	{
-            /* uint8 r = palette[ucompdata[i] << 2];
-            uint8 g = palette[(ucompdata[i] << 2) + 1];
-            uint8 b = palette[(ucompdata[i] << 2) + 2];
+            /* uint8 r = palette[mr.bitmap1[i] << 2];
+            uint8 g = palette[(mr.bitmap1[i] << 2) + 1];
+            uint8 b = palette[(mr.bitmap1[i] << 2) + 2];
             uint16 color = PACK_PIXEL(r, g, b);
             DRAW_PIXEL(x0 + 50, y1, color);
             */
