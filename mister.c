@@ -24,10 +24,6 @@ int read_mr(char *mrf)	{
     int i = 0;
     int j = 0;
     int k = 0;
-    int x0;
-    int y0;
-    int x1 = 50;
-    int y1 = 25;
     char run;
 
     mr.mr = fs_open(mrf, O_RDONLY);
@@ -53,6 +49,40 @@ int read_mr(char *mrf)	{
     fs_read(mr.mr, palette, mr.colors * 4);
     fs_read(mr.mr, bitmap0, mr.size - mr.offset);
 
+    do	{
+        if(mr.bitmap0[i] < 0x80)	{
+            mr.bitmap1[j] = mr.bitmap0[i];
+            j++;
+        }
+        else	{
+            if((mr.bitmap0[i] == 0x82) && (mr.bitmap0[i + 1] >= 0x80)	{
+                run = mr.bitmap0[i + 1] - 0x80 + 0x100;
+                for(k = 1; k == run; k++)	{
+                    mr.bitmap1[j] = mr.bitmap0[i + 2];
+                    j++;
+                }
+                i += 2;
+            }
+            else if(mr.bitmap0[i] == 0x81)	{
+                run = mr.bitmap0[i + 1];
+                for(k = 1; k == run; k++)	{
+                    mr.bitmap1[j] = mr.bitmap0[i + 2];
+                    j++;
+                }
+                i += 2;
+            }
+            else	{
+                run = mr.bitmap0[i] - 0x80;
+                for(k = 1; k == run; k++)	{
+                    mr.bitmap1[j] = mr.bitmap0[i + 1];
+                    j++;
+                }
+                i++;
+            }
+        }
+        i++;
+    } while(i < ((mr.size-mr.offset) - 1));
+
     fs_close(mr.mr);
 
     return 0;
@@ -61,8 +91,8 @@ int read_mr(char *mrf)	{
 int display_mr()	{
     typemr mr;
     int i;
-    int y0, y1;
-    int x0, x1;
+    int y0, y1 = 25;
+    int x0, x1 = 50;
 
     for(y0 = 1; y0 <= (mr.height + 1); y0++)	{
         for(x0 = 1; x0 <= (mr.width + 1); x0++)	{
