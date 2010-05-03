@@ -18,13 +18,21 @@
 */
 
 #define MAX_COLORS_MR 127
-#define MAX_SIZE_USER_MR 8192 /* the second bootstrap is ~10208 bytes 
-(bleem!cast's Mister is 12733 bytes) */
+
+#define MAX_SIZE_USER_MR 8192
 #define HEIGHT_USER_MR 90
 #define WIDTH_USER_MR 320
 
+#define SIZE_SEGA_MR 4311
+/*#define HEIGHT_SEGA_MR
+#define WIDTH_SEGA_MR*/
+
+#define SIZE_TRADEMARK_MR 299
+/*#define HEIGHT_TRADEMARK_MR
+#define WIDTH_TRADEMARK_MR*/
+
 typedef struct {
-    char mr[MAX_SIZE_USER_MR];
+    /* char mr[MAX_SIZE_USER_MR]; */
     char id[2];
     WORD size;
     char crap0[6];
@@ -37,8 +45,8 @@ typedef struct {
     WORD colors;
     char crap4[2];
     char palette[MAX_COLORS_MR * 4];
-    char bitmap0[MAX_SIZE_USER_MR - 1];
-    char bitmap1[WIDTH_USER_MR * HEIGHT_USER_MR]; /* Uncompressed */
+    char bitmap[MAX_SIZE_USER_MR - 1];
+    /* char bitmap1[WIDTH_USER_MR * HEIGHT_USER_MR]; */ /* Uncompressed */
 } typemr;
 
 int read_mr(char *mrf);

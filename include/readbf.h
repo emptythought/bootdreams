@@ -23,9 +23,6 @@
     scrambled
 };
 
-#define MAX_SIZE_USER_MR 8192 /* the second bootstrap is ~10208 bytes 
-(bleem!cast's Mister is 12733 bytes) */
-
 typedef struct {
     char hardware_id[16]; /* always "SEGA SEGAKATANA " */
     char maker_id[16]; /* always "SEGA ENTERPRISES" */
@@ -58,8 +55,8 @@ typedef struct {
     char release_date[8]
     char boot_filname[16]
     char company_name[16]
-    char mr_sega[4311]
-    char mr_trademark[299]
+    char mr_sega[SIZE_SEGA_MR]
+    char mr_trademark[SIZE_TRADEMARK_MR]
     char mr_user[MAX_SIZE_USER_MR]
 } typebsf;
 

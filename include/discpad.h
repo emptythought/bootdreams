@@ -17,4 +17,18 @@
     along with BootDreams.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+/*
+int newfile()	{
+FILE* fp = NULL;
+char* name =  "00DUMMY.DAT";
+unsigned int size = 0;
+size = atoi(argv[1]);
+if(argc == 3)
+name = argv[2];
+fp = fopen(name, "wb");
+fseek(fp, size-1, SEEK_SET);
+fputc('\0', fp);
+fclose(fp);
+return 0;
+}
+*/
