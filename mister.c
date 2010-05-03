@@ -59,8 +59,7 @@ int display_mr()	{
     int y0;
     int x1 = 50;
     int y1 = 25;
-
-    /* char Run; */
+    char run;
 
     do	{
         if(compdata[i] < 0x80)	{
@@ -69,24 +68,24 @@ int display_mr()	{
         }
         else	{
             if((compdata[i] == 0x82) && (compdata[i + 1] >= 0x80)	{
-                Run = compdata[i + 1] - 0x80 + 0x100;
-                for(k = 1; k == Run; k++)	{
+                run = compdata[i + 1] - 0x80 + 0x100;
+                for(k = 1; k == run; k++)	{
                     ucompdata[j] = compdata[i + 2];
                     j++;
                 }
                 i += 2;
             }
             else if(compdata[i] == 0x81)	{
-                Run = compdata[i + 1];
-                for(k = 1; k == Run; k++)	{
+                run = compdata[i + 1];
+                for(k = 1; k == run; k++)	{
                     ucompdata[j] = compdata[i + 2];
                     j++;
                 }
                 i += 2;
             }
             else	{
-                Run = compdata[i] - 0x80;
-                for(k = 1; k == Run; k++)	{
+                run = compdata[i] - 0x80;
+                for(k = 1; k == run; k++)	{
                     ucompdata[j] = compdata[i + 1];
                     j++;
                 }
