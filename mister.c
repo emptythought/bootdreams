@@ -45,7 +45,7 @@ int read_mr(char *mrf)	{
     fs_read(mr.mr, palette, mr.colors * 4);
     fs_read(mr.mr, bitmap0, mr.size - mr.offset);
 
-    fs_close(input);
+    fs_close(mr.mr);
 
     return 0;
 }
