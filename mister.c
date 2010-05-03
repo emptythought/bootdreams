@@ -28,7 +28,7 @@ int read_mr(char *mrf)	{
 
     fs_read(mr.mr, mr.id, sizeof(mr.id));
 
-    if(memcmp(mr.id, MR_ID, sizeof(mr.id)))
+    if(memcmp(mr.id, "MR", sizeof(mr.id)))
         return -1;
 
     fs_read(mr.mr, &mr.size, sizeof(mr.size));
