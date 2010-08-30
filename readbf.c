@@ -17,20 +17,38 @@
     along with BootDreams.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-int read_mbf(char *mbf)	{
+/*
+// ELF file header
+struct elf_hdr_t {
+	unsigned char	ident[16];	// For elf32-shl, 0x7f+"ELF"+1+1
+	uint16		type;		// 0x02 for ET_EXEC
+	uint16		machine;	// 0x2a for elf32-shl
+	uint32		version;
+	uint32		entry;		// Entry point
+	uint32		phoff;		// Program header offset
+	uint32		shoff;		// Section header offset
+	uint32		flags;		// Processor flags
+	uint16		ehsize;		// ELF header size in bytes
+	uint16		phentsize;	// Program header entry size
+	uint16		phnum;		// Program header entry count
+	uint16		shentsize;	// Section header entry size
+	uint16		shnum;		// Section header entry count
+	uint16		shstrndx;	// String table section index
+}
+*/
+
+;int read_mbf(char *mbf)	{
     char alphabet[] = "abcdefghijklmnopqrstuvwxyz"; /* UC & LC */
     char number0[] = "0123456789";
     char number1[] = "1234567890";
-    char sh_elf[] = 0x127 & "ELF";
+    char sh_elf[] = 0x127 & "ELF"; //
     char netbsd[] = "$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-
     char dreamsnes[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789-";
-
-/* char temp[] = "#...'...*...-.../...2...4...7...9...;...=...?...A...C...E...G...I...J...L...N...O...Q...R...T...U...W...X...Z..."; */
-/* char temp2[] = "0123456789abcdef....(null)..0123456789ABCDEF"; */
-/* char punch[] = "PORTDEV INFOENBLSTATRADRTOUTDRQCFUNCEND"; */
-/* char tetris[] = "abcdefghijklEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()"; */
-/* char bortmnt[] = "0123456789ABCDEF....Inf.NaN.0123456789abcdef....(null)..."; */
+/*  char temp[] = "#...'...*...-.../...2...4...7...9...;...=...?...A...C...E...G...I...J...L...N...O...Q...R...T...U...W...X...Z..."; */
+/*  char temp2[] = "0123456789abcdef....(null)..0123456789ABCDEF"; */
+/*  char punch[] = "PORTDEV INFOENBLSTATRADRTOUTDRQCFUNCEND"; */
+/*  char tetris[] = "abcdefghijklEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()"; */
+/*  char bortmnt[] = "0123456789ABCDEF....Inf.NaN.0123456789abcdef....(null)..."; */
 }
 
 int read_bsf(char *bsf)	{

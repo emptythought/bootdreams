@@ -17,36 +17,36 @@
     along with BootDreams.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define MAX_COLORS_MR 127
+#define MR_MAX_COLORS 127
 
-#define MAX_SIZE_USER_MR 8192
-#define HEIGHT_USER_MR 90
-#define WIDTH_USER_MR 320
+#define MR_USER_MAX_SIZE 8192
+#define MR_USER_WIDTH 320
+#define MR_USER_HEIGHT 90
 
-#define SIZE_SEGA_MR 4311
-/*#define HEIGHT_SEGA_MR
-#define WIDTH_SEGA_MR*/
+#define MR_SEGA_SIZE 4311
+#define MR_SEGA_WIDTH 291
+#define MR_SEGA_HEIGHT 89
 
-#define SIZE_TRADEMARK_MR 299
-/*#define HEIGHT_TRADEMARK_MR
-#define WIDTH_TRADEMARK_MR*/
+#define MR_TRADEMARK_SIZE 299
+#define MR_TRADEMARK_WIDTH 22
+#define MR_TRADEMARK_HEIGHT 12
 
 typedef struct {
-    /* char mr[MAX_SIZE_USER_MR]; */
+    char mr[MR_USER_MAX_SIZE];
     char id[2];
-    WORD size;
+    unsigned short size;
     char crap0[6];
-    WORD offset;
+    unsigned short offset;
     char crap1[2];
-    WORD width;
+    unsigned short width;
     char crap2[2];
-    WORD height;
+    unsigned short height;
     char crap3[6];
-    WORD colors;
+    unsigned short colors;
     char crap4[2];
-    char palette[MAX_COLORS_MR * 4];
-    char bitmap[MAX_SIZE_USER_MR - 1];
-    char bitmap_uncompress[WIDTH_USER_MR * HEIGHT_USER_MR]; /* Uncompressed */
+    char palette[MR_MAX_COLORS * 4];
+    char bitmap[MR_USER_MAX_SIZE - 1];
+    char bitmap_expanded[MR_USER_WIDTH * MR_USER_HEIGHT];
 } typemr;
 
 int read_mr(char *mrf);
