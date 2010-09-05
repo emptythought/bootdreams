@@ -17,6 +17,10 @@
     along with BootDreams.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdio.h>
+
+#include "readbf.h"
+
 /*
 // ELF file header
 struct elf_hdr_t {
@@ -37,11 +41,11 @@ struct elf_hdr_t {
 }
 */
 
-;int read_mbf(char *mbf)	{
+enummbf read_mbf(char *mbf)	{
     char alphabet[] = "abcdefghijklmnopqrstuvwxyz"; /* UC & LC */
     char number0[] = "0123456789";
     char number1[] = "1234567890";
-    char sh_elf[] = 0x127 & "ELF"; //
+/*  char sh_elf[] = 0x127 & "ELF"; */
     char netbsd[] = "$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
     char dreamsnes[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789-";
 /*  char temp[] = "#...'...*...-.../...2...4...7...9...;...=...?...A...C...E...G...I...J...L...N...O...Q...R...T...U...W...X...Z..."; */
@@ -49,52 +53,165 @@ struct elf_hdr_t {
 /*  char punch[] = "PORTDEV INFOENBLSTATRADRTOUTDRQCFUNCEND"; */
 /*  char tetris[] = "abcdefghijklEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()"; */
 /*  char bortmnt[] = "0123456789ABCDEF....Inf.NaN.0123456789abcdef....(null)..."; */
+
+    return 0;
+}
+
+int read_bsf_peripheral(int ascii, int *FLAG1, int *FLAG2, int *FLAG3,
+      int *FLAG4)	{
+    switch(ascii)	{
+        case '1': /* 10001100 */
+            *FLAG1 = 1;
+            if(FLAG2 != NULL)
+                *FLAG2 = 0;
+            if(FLAG3 != NULL)
+                *FLAG3 = 0;
+            if(FLAG4 != NULL)
+                *FLAG4 = 0;
+            break;
+        case '2': /* 01001100 */
+            *FLAG1 = 0;
+            *FLAG2 = 1;
+            *FLAG3 = 0;
+            *FLAG4 = 0;
+            break;
+        case '3': /* 11001100 */
+            *FLAG1 = 1;
+            *FLAG2 = 1;
+            *FLAG3 = 0;
+            *FLAG4 = 0;
+            break;
+        case '4': /* 00101100 */
+            *FLAG1 = 0;
+            *FLAG2 = 0;
+            *FLAG3 = 1;
+            *FLAG4 = 0;
+            break;
+        case '5': /* 10101100 */
+            *FLAG1 = 1;
+            *FLAG2 = 0;
+            *FLAG3 = 1;
+            *FLAG4 = 0;
+            break;
+        case '6': /* 01101100 */
+            *FLAG1 = 0;
+            *FLAG2 = 1;
+            *FLAG3 = 1;
+            *FLAG4 = 0;
+            break;
+        case '7': /* 11101100 */
+            *FLAG1 = 1;
+            *FLAG2 = 1;
+            *FLAG3 = 1;
+            *FLAG4 = 0;
+            break;
+        case '8': /* 00011100 */
+            *FLAG1 = 0;
+            *FLAG2 = 0;
+            *FLAG3 = 0;
+            *FLAG4 = 1;
+            break;
+        case '9': /* 10011100 */
+            *FLAG1 = 1;
+            *FLAG2 = 0;
+            *FLAG3 = 0;
+            *FLAG4 = 1;
+            break;
+        case 'A': /* 10000010 */
+            *FLAG1 = 0;
+            *FLAG2 = 1;
+            *FLAG3 = 0;
+            *FLAG4 = 1;
+            break;
+        case 'B': /* 01000010 */
+            *FLAG1 = 1;
+            *FLAG2 = 1;
+            *FLAG3 = 0;
+            *FLAG4 = 1;
+            break;
+        case 'C': /* 11000010 */
+            *FLAG1 = 0;
+            *FLAG2 = 0;
+            *FLAG3 = 1;
+            *FLAG4 = 1;
+            break;
+        case 'D': /* 00100010 */
+            *FLAG1 = 1;
+            *FLAG2 = 0;
+            *FLAG3 = 1;
+            *FLAG4 = 1;
+            break;
+        case 'E': /* 10100010 */
+            *FLAG1 = 0;
+            *FLAG2 = 1;
+            *FLAG3 = 1;
+            *FLAG4 = 1;
+            break;
+        case 'F': /* 01100010 */
+            *FLAG1 = 1;
+            *FLAG2 = 1;
+            *FLAG3 = 1;
+            *FLAG4 = 1;
+            break;
+        default: /* 0000110 or other */
+            *FLAG1 = 0;
+            if(FLAG2 != NULL)
+                *FLAG2 = 0;
+            if(FLAG3 != NULL)
+                *FLAG3 = 0;
+            if(FLAG4 != NULL)
+                *FLAG4 = 0;
+            break;
+    }
+
+    return 0;
 }
 
 int read_bsf(char *bsf)	{
+    FILE *fp;
     typebsf bs;
 
-    bs.bs = fs_open(bsf, O_RDONLY);
-    if(bs.bs  == -1)
+    fp = fopen(bsf, "r");
+    if(!fp)
         return -1;
 
-    fs_read(bs.bs, bs.hardware_id, sizeof(bs.hardware_id));
-    fs_read(bs.bs, bs.maker_id, sizeof(bs.maker_id));
-    fs_read(bs.bs, bs.device_information, sizeof(bs.device_information));
-    fs_read(bs.bs, bs.hardware_id, sizeof(bs.hardware_id));
-    fs_read(bs.bs, bs.area_symbols, sizeof(bs.area_symbols));
-    /*
-    fs_read(bs.bs, bs.mouse, sizeof(bs.mouse));
-    fs_read(bs.bs, bs.gun, sizeof(bs.gun));
-    fs_read(bs.bs, bs.keyboard, sizeof(bs.keyboard));
-    fs_read(bs.bs, bs.expand_analog_vert, sizeof(bs.expand_analog_vert));
-    fs_read(bs.bs, bs.expand_analog_hor, sizeof(bs.expand_analog_hor));
-    fs_read(bs.bs, bs.analog_vert_controller, sizeof(bs.analog_vert_controller));
-    fs_read(bs.bs, bs.analog_hor_controller, sizeof(bs.analog_hor_controller);
-    fs_read(bs.bs, bs.analog_l_trigger, sizeof(bs.analog_l_trigger));
-    fs_read(bs.bs, bs.analog_r_trigger, sizeof(bs.analog_r_trigger));
-    fs_read(bs.bs, bs.expand_dir_buttons, sizeof(bs.expand_dir_buttons));
-    fs_read(bs.bs, bs.z_button, sizeof(bs.z_button));
-    fs_read(bs.bs, bs.y_button, sizeof(bs.y_button));
-    fs_read(bs.bs, bs.x_button, sizeof(bs.x_button));
-    fs_read(bs.bs, bs.d_button, sizeof(bs.d_button));
-    fs_read(bs.bs, bs.c_button, sizeof(bs.c_button));
-    fs_read(bs.bs, bs.start_abdir_buttons, sizeof(bs.start_abdir_buttons));
-    fs_read(bs.bs, bs.memory_card, sizeof(bs.memory_card));
-    fs_read(bs.bs, bs.microphone_card, sizeof(bs.microphone_card));
-    fs_read(bs.bs, bs.purpuru_card, sizeof(bs.purpuru_card));
-    fs_read(bs.bs, bs.other_card, sizeof(bs.other_card));
-    fs_read(bs.bs, bs.vga_box, sizeof(bs.vga_box));
-    fs_read(bs.bs, bs.windowsce, sizeof(bs.windowsce));
-    */
-    fs_read(bs.bs, bs.product_id, sizeof(bs.product_id));
-    fs_read(bs.bs, bs.product_version, sizeof(bs.product_version));
-    fs_read(bs.bs, bs.release_date, sizeof(bs.release_date));
-    fs_read(bs.bs, bs.boot_filname, sizeof(bs.boot_filname));
-    fs_read(bs.bs, bs.company_name, sizeof(bs.company_name));
-    fs_read(bs.bs, bs.mr_sega, sizeof(bs.mr_sega));
-    fs_read(bs.bs, bs.mr_trademark, sizeof(bs.mr_trademark));
-    fs_read(bs.bs, bs.mr_user, sizeof(bs.mr_user));
+    fread(bs.hardware_id, sizeof(bs.hardware_id) - 1, 1, fp);
+    fread(bs.maker_id, sizeof(bs.maker_id) - 1, 1, fp);
+    fread(bs.checksum, sizeof(bs.checksum) - 1, 1, fp);
+    fseek(fp, 1, SEEK_CUR);
+    fread(bs.disc_info, sizeof(bs.disc_info) - 1, 1, fp);
+    fread(bs.area_symbols, sizeof(bs.area_symbols) - 1, 1, fp);
+    fseek(fp, 5, SEEK_CUR);
+    fread(bs.peripherals, sizeof(bs.peripherals) - 1, 1, fp);
+    read_bsf_peripheral(bs.peripherals[0], &bs.expand_analog_vert,
+          &bs.keyboard, &bs.gun, &bs.mouse);
+    read_bsf_peripheral(bs.peripherals[1], &bs.analog_l_trigger,
+          &bs.analog_vert_controller, &bs.analog_hor_controller,
+          &bs.expand_analog_hor);
+    read_bsf_peripheral(bs.peripherals[2], &bs.y_button,
+          &bs.expand_dir_buttons, &bs.z_button, &bs.analog_r_trigger);
+    read_bsf_peripheral(bs.peripherals[3], &bs.start_abdir_buttons,
+          &bs.d_button, &bs.c_button, &bs.x_button);
+    read_bsf_peripheral(bs.peripherals[4], &bs.other, &bs.microphone_card,
+          &bs.purupuru_card, &bs.memory_card);
+    read_bsf_peripheral(bs.peripherals[5], &bs.vga_box, NULL, NULL, NULL);
+    read_bsf_peripheral(bs.peripherals[6], &bs.windowsce, NULL, NULL, NULL);
+    fseek(fp, 1, SEEK_CUR);
+    fread(bs.product_id, sizeof(bs.product_id) - 1, 1, fp);
+    fseek(fp, 1, SEEK_CUR);
+    fread(bs.product_version, sizeof(bs.product_version) - 1, 1, fp);
+    fread(bs.release_date, sizeof(bs.release_date) - 1, 1, fp);
+    fseek(fp, 8, SEEK_CUR);
+    fread(bs.boot_filname, sizeof(bs.boot_filname) - 1, 1, fp);
+    fread(bs.company_name, sizeof(bs.company_name) - 1, 1, fp);
+    fread(bs.software_name, sizeof(bs.software_name) - 1, 1, fp);
+    fseek(fp, 8556, SEEK_CUR);
+    fread(bs.mr_trademark, sizeof(bs.mr_trademark), 1, fp);
+    fread(bs.mr_sega, sizeof(bs.mr_sega), 1, fp);
+    fseek(fp, 946, SEEK_CUR);
+    fread(bs.mr_user, sizeof(bs.mr_user), 1, fp);
+
+    fclose(fp);
 
     return 0;
 }

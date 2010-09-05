@@ -43,7 +43,7 @@ int read_mr(char *mrf)	{
     fread(&mr.size, sizeof(mr.size), 1, fp);
     fread(mr.crap0, sizeof(mr.crap0), 1, fp);
     fread(&mr.offset, sizeof(mr.offset), 1, fp);
-    /* unsigned char bitmap0[mr.size - mr.offset]; */
+/*  unsigned char bitmap0[mr.size - mr.offset]; */
     fread(mr.crap1, sizeof(mr.crap1), 1, fp);
     fread(&mr.width, sizeof(mr.width), 1, fp);
     fread(mr.crap2, sizeof(mr.crap2), 1, fp);
@@ -86,7 +86,7 @@ int read_mr(char *mrf)	{
             }
         }
         i++;
-    } while(i < ((mr.size-mr.offset) - 1));
+    } while(i < ((mr.size - mr.offset) - 1));
 
     fclose(fp);
 
@@ -101,12 +101,11 @@ int display_mr()	{
 
     for(y0 = 1; y0 <= (mr.height + 1); y0++)	{
         for(x0 = 1; x0 <= (mr.width + 1); x0++)	{
-            /* uint8 r = palette[mr.bitmap_uncompress[i] << 2];
+/*          uint8 r = palette[mr.bitmap_uncompress[i] << 2];
             uint8 g = palette[(mr.bitmap_uncompress[i] << 2) + 1];
             uint8 b = palette[(mr.bitmap_uncompress[i] << 2) + 2];
             uint16 color = PACK_PIXEL(r, g, b);
-            DRAW_PIXEL(x0 + 50, y1, color);
-            */
+            DRAW_PIXEL(x0 + 50, y1, color); */
             i++;
             x1++;
         }
