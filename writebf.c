@@ -17,4 +17,20 @@
     along with BootDreams.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "writebf.h"
 
+int write_mbf(char *mbf)	{
+    return 0;
+}
+
+int write_bsf(char *bsf)	{
+    return 0;
+}
+
+int unscramble_mbf(char *mbf)	{
+    return 0;
+}
+
+int scramble_mbf(char *mbf)	{
+    return 0;
+}

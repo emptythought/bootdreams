@@ -19,5 +19,3 @@
 
 int write_mbf(char *mbf);
 int write_bsf(char *bsf);
-int unscramble_mbf(char *mbf);
-int scramble_mbf(char *mbf);
