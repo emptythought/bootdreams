@@ -31,6 +31,11 @@
 #define MR_TRADEMARK_WIDTH 22
 #define MR_TRADEMARK_HEIGHT 12
 
+typedef enum {
+    unscrambled,
+    scrambled
+} enummbf;
+
 typedef struct {
 /* bs.mr.user.cache
 bs.mr.user.id
@@ -58,11 +63,6 @@ bs.mr.user.bitmap.palette */
     char bitmap[MR_USER_MAX_SIZE - 1];
     char bitmap_expanded[MR_USER_WIDTH * MR_USER_HEIGHT];
 } typemr;
-
-typedef enum {
-    unscrambled,
-    scrambled
-} enummbf;
 
 typedef struct {
     char hardware_id[17]; /* always "SEGA SEGAKATANA " */
@@ -105,6 +105,6 @@ typedef struct {
 } typebsf;
 
 enummbf read_mbf(char *mbf);
-int read_bsf(char *bsf);
 int read_mr(char *mrf);
 int display_mr();
+int read_bsf(char *bsf);
