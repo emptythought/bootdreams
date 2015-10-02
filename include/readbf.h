@@ -1,26 +1,6 @@
 /*
     This file is part of BootDreams.
 
-    Copyright (C) 2010 Cyle Terry
-
-    BootDreams is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    BootDreams is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with BootDreams.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-#include "mister.h"
-/*
-    This file is part of BootDreams.
-
     Copyright (C) 2010, 2015 Cyle Terry
 
     BootDreams is free software: you can redistribute it and/or modify
@@ -39,9 +19,9 @@
 
 #define MR_MAX_COLORS 127
 
-#define MR_USER_MAX_SIZE 8192
-#define MR_USER_WIDTH 320
-#define MR_USER_HEIGHT 90
+#define MR_USER_MAX_SIZE 8192 /* bleem!cast is like 10675 */
+#define MR_USER_MAX_WIDTH 320
+#define MR_USER_MAX_HEIGHT 90
 
 #define MR_SEGA_SIZE 4311
 #define MR_SEGA_WIDTH 291
@@ -52,6 +32,16 @@
 #define MR_TRADEMARK_HEIGHT 12
 
 typedef struct {
+/* bs.mr.user.cache
+bs.mr.user.id
+bs.mr.user.offset
+bs.mr.user.width
+bs.mr.user.height
+bs.mr.user.colors
+bs.mr.user.bitmap.compressed
+bs.mr.user.bitmap.uncompressed
+bs.mr.user.bitmap.offset
+bs.mr.user.bitmap.palette */
     char mr[MR_USER_MAX_SIZE];
     char id[2];
     unsigned short size;
@@ -69,12 +59,8 @@ typedef struct {
     char bitmap_expanded[MR_USER_WIDTH * MR_USER_HEIGHT];
 } typemr;
 
-int read_mr(char *mrf);
-int display_mr();
-
 typedef enum {
     unscrambled,
-    sh_elf,
     scrambled
 } enummbf;
 
@@ -120,3 +106,5 @@ typedef struct {
 
 enummbf read_mbf(char *mbf);
 int read_bsf(char *bsf);
+int read_mr(char *mrf);
+int display_mr();
