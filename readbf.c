@@ -1,7 +1,7 @@
 /*
     This file is part of BootDreams.
 
-    Copyright (C) 2010 Cyle Terry
+    Copyright (C) 2010, 2015 Cyle Terry
 
     BootDreams is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -41,16 +41,16 @@ int read_mr(char *mrf)	{
         return -1;
 
     fread(&mr.size, sizeof(mr.size), 1, fp);
-    fread(mr.crap0, sizeof(mr.crap0), 1, fp);
+    fread(mr.reserve_o1, sizeof(mr.reserve_o1), 1, fp);
     fread(&mr.offset, sizeof(mr.offset), 1, fp);
 /*  unsigned char bitmap0[mr.size - mr.offset]; */
-    fread(mr.crap1, sizeof(mr.crap1), 1, fp);
+    fread(mr.reserve_o2, sizeof(mr.reserve_o2), 1, fp);
     fread(&mr.width, sizeof(mr.width), 1, fp);
-    fread(mr.crap2, sizeof(mr.crap2), 1, fp);
+    fread(mr.reserve_o3, sizeof(mr.reserve_o3), 1, fp);
     fread(&mr.height, sizeof(mr.height), 1, fp);
-    fread(mr.crap3, sizeof(mr.crap3), 1, fp);
+    fread(mr.reserve_o4, sizeof(mr.reserve_o4), 1, fp);
     fread(&mr.colors, sizeof(mr.colors), 1, fp);
-    fread(mr.crap4, sizeof(mr.crap4), 1, fp);
+    fread(mr.reserve_o5, sizeof(mr.reserve_o5), 1, fp);
 /*  fread(palette, mr.colors * 4, 1, fp);
     fread(bitmap, mr.size - mr.offset, 1, fp); */
 
@@ -114,26 +114,6 @@ int display_mr()	{
 
     return 0;
 }
-
-/*
-// ELF file header
-struct elf_hdr_t {
-	unsigned char	ident[16];	// For elf32-shl, 0x7f+"ELF"+1+1
-	uint16		type;		// 0x02 for ET_EXEC
-	uint16		machine;	// 0x2a for elf32-shl
-	uint32		version;
-	uint32		entry;		// Entry point
-	uint32		phoff;		// Program header offset
-	uint32		shoff;		// Section header offset
-	uint32		flags;		// Processor flags
-	uint16		ehsize;		// ELF header size in bytes
-	uint16		phentsize;	// Program header entry size
-	uint16		phnum;		// Program header entry count
-	uint16		shentsize;	// Section header entry size
-	uint16		shnum;		// Section header entry count
-	uint16		shstrndx;	// String table section index
-}
-*/
 
 enummbf read_mbf(char *mbf)	{
     char alphabet[] = "abcdefghijklmnopqrstuvwxyz"; /* UC & LC */
