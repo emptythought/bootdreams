@@ -37,7 +37,11 @@ typedef enum {
 } enummbf;
 
 typedef struct {
-/* bs.mr.user.cache
+/* bs.instructor./
+bs.instructor.title
+bs.instructor.banner
+bs.mr.user./
+bs.mr.user.cache
 bs.mr.user.id
 bs.mr.user.offset
 bs.mr.user.width
@@ -47,9 +51,11 @@ bs.mr.user.bitmap.compressed
 bs.mr.user.bitmap.uncompressed
 bs.mr.user.bitmap.offset
 bs.mr.user.bitmap.palette
-bs.mr.toc.type
-bs.mr.toc.lba.start
-bs.mr.toc.lba.end */
+bs.toc./
+bs.toc.*./
+bs.toc.*.type
+bs.toc.*.lba.start
+bs.toc.*.lba.end */
     char mr[MR_USER_MAX_SIZE];
     char id[2];
     unsigned short size;
