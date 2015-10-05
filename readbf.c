@@ -19,6 +19,15 @@
 
 #include <stdio.h>
 
+/* From 1strdchk.c */
+#include <string.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#define Unscrambled  0
+#define Scrambled    1
+char *memoryspace;  /* A pointer that will be stored the file */
+/* From 1strdchk.c */
+
 #include "readbf.h"
 
 int read_mr(char *mrf)	{
@@ -115,7 +124,7 @@ int display_mr()	{
     return 0;
 }
 
-enummbf read_mbf(char *mbf)	{
+int read_mbf_byte(int ascii)    {
 /* punch PORTDEV INFOENBLSTATRADRTOUTDRQCFUNCEND
 tetris abcdefghijklEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()
 bor_tmnt 0123456789ABCDEF....Inf.NaN.0123456789abcdef....(null)... 
@@ -129,7 +138,46 @@ temp2 0123456789abcdef....(null)..0123456789ABCDEF  */
     int offset_netbsd;// $%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~
     int offset_dreamsnes; //ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789-
     int offset_bor_tmnt; //0123456789ABCDEF....Inf.NaN.0123456789abcdef....(null)...
-    
+
+	 /* strstr(memoryspace, abc1) 
+	 strstr(memoryspace, abc2) 
+	 strstr(memoryspace, abc3) 
+	 strstr(memoryspace, abc4) 
+	 strstr(memoryspace, abc5) 
+	 strstr(memoryspace, abc6) 
+	 strstr(memoryspace, abc7) 
+	 strstr(memoryspace, abc8) 
+	 strstr(memoryspace, temp) 
+	 strstr(memoryspace, temp2) 
+	 strstr(memoryspace, bortmnt) 
+	 strstr(memoryspace, dreamsnes) 
+	 strstr(memoryspace, tetris) 
+	 strstr(memoryspace, punch) 
+	 strstr(memoryspace, netbsd)*/
+
+	//return ;
+} 
+
+enummbf read_mbf(char *mbf) {
+    int size;
+    FILE *fp;
+    typembf mb;
+    char buffer;
+    int i;
+	
+    fp = fopen(mbf, "r");
+    if(!fp)
+        return -1;
+  
+	size = ftell(pFile); 
+ 
+	for (i = 0; i < size; i++)  { 
+	    fread(buffer, 1, 1, fp);
+	    mb.scambled = read_mbf_byte(buffer);
+	} 
+ 
+	close(fp);
+	
     return 0;
 }
 
