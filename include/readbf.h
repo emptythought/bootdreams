@@ -46,7 +46,10 @@ bs.mr.user.colors
 bs.mr.user.bitmap.compressed
 bs.mr.user.bitmap.uncompressed
 bs.mr.user.bitmap.offset
-bs.mr.user.bitmap.palette */
+bs.mr.user.bitmap.palette
+bs.mr.toc.type
+bs.mr.toc.lba.start
+bs.mr.toc.lba.end */
     char mr[MR_USER_MAX_SIZE];
     char id[2];
     unsigned short size;
