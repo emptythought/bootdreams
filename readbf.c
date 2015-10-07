@@ -19,15 +19,6 @@
 
 #include <stdio.h>
 
-/* From 1strdchk.c */
-#include <string.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#define Unscrambled  0
-#define Scrambled    1
-char *memoryspace;  /* A pointer that will be stored the file */
-/* From 1strdchk.c */
-
 #include "readbf.h"
 
 int read_mr(char *mrf)	{
@@ -124,41 +115,37 @@ int display_mr()	{
     return 0;
 }
 
+/* TODO: get compiling and impl. unparsed banners */
 int read_mbf_byte(int ascii)    {
-/* punch PORTDEV INFOENBLSTATRADRTOUTDRQCFUNCEND
-tetris abcdefghijklEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()
-bor_tmnt 0123456789ABCDEF....Inf.NaN.0123456789abcdef....(null)... 
-temp #...'...*...-.../...2...4...7...9...;...=...?...A...C...E...G...I...J...L...N...O...Q...R...T...U...W...X...Z...";
-temp2 0123456789abcdef....(null)..0123456789ABCDEF  */
+    char kallistios; //KallistiOS0x201.1.6:0x20Sun0x20Jan0x20130x2023:12:020x20MST0x2020020x0A0x200x20bard@yuna.tucson.allusion.net:/home/bard/prj/releases-kos/kos-1.1.60x0A0x00
+    char katana;
+    char naomi;
+    char libronin
+    char libdream;
+    char wincedc;
+    static int offset_kallistios;
+    static int offset_katana;
+    static int offset_naomi;
+    static int offset_libronin;
+    static int offset_libdream;
+    static int offset_wincedc;
+    static int offset_metaid_alphanum1 = 1; //0123456789abcdefghijklmnopqrstuvwxyz
+    static int offset_metaid_alphanum2 = 1; //1234567890abcdefghijklmnopqrstuvwxyz
+    static int offset_metaid_alphanum3 = 1; //abcdefghijklmnopqrstuvwxyz0123456789
+    static int offset_metaid_alphanum4 = 1; //abcdefghijklmnopqrstuvwxyz1234567890
+    static int offset_metaid_netbsd = 1; // $%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+    static int offset_metaid_libronin = 1; //ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789-
+    static int offset_metaid_bor_tmnt = 1; //0123456789ABCDEF....Inf.NaN.0123456789abcdef....(null)...
 
-    int offset_alphanum1; //0123456789abcdefghijklmnopqrstuvwxyz
-    int offset_alphanum2; //1234567890abcdefghijklmnopqrstuvwxyz
-    int offset_alphanum3; //abcdefghijklmnopqrstuvwxyz0123456789
-    int offset_alphanum4; //abcdefghijklmnopqrstuvwxyz1234567890
-    int offset_netbsd;// $%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~
-    int offset_dreamsnes; //ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789-
-    int offset_bor_tmnt; //0123456789ABCDEF....Inf.NaN.0123456789abcdef....(null)...
+    if(ascii = asc(mid(string, offset_string, 1,)))
+        if(offset_string = strlen(string))
+            //unscrambled
+        else
+            offset_string++;
 
-	 /* strstr(memoryspace, abc1) 
-	 strstr(memoryspace, abc2) 
-	 strstr(memoryspace, abc3) 
-	 strstr(memoryspace, abc4) 
-	 strstr(memoryspace, abc5) 
-	 strstr(memoryspace, abc6) 
-	 strstr(memoryspace, abc7) 
-	 strstr(memoryspace, abc8) 
-	 strstr(memoryspace, temp) 
-	 strstr(memoryspace, temp2) 
-	 strstr(memoryspace, bortmnt) 
-	 strstr(memoryspace, dreamsnes) 
-	 strstr(memoryspace, tetris) 
-	 strstr(memoryspace, punch) 
-	 strstr(memoryspace, netbsd)*/
-
-	//return ;
 } 
 
-enummbf read_mbf(char *mbf) {
+enummbf read_mbf(char *mbf)	{
     int size;
     FILE *fp;
     typembf mb;
@@ -169,15 +156,15 @@ enummbf read_mbf(char *mbf) {
     if(!fp)
         return -1;
   
-	size = ftell(pFile); 
+    size = ftell(pFile); 
  
-	for (i = 0; i < size; i++)  { 
-	    fread(buffer, 1, 1, fp);
-	    mb.scambled = read_mbf_byte(buffer);
-	} 
+    for(i = 0; i < size; i++)  { 
+	fread(buffer, 1, 1, fp);
+        mb.scambled = read_mbf_byte(buffer);
+    } 
  
-	close(fp);
-	
+    close(fp);
+    
     return 0;
 }
 
