@@ -117,9 +117,10 @@ int display_mr()	{
 
 /* TODO: get compiling and impl. unparsed banners */
 int read_mbf_byte(int ascii)    {
+    char elf; //0x127 ELF
     char kallistios;
-    char katana;
-    char naomi;
+    char katana; //"shinobi library for dreamcast version "
+    char naomi; //"copyright (c) sega enterprises,ltd." & Chr(0) & "naomi library ver "
     char libronin
     char libdream;
     char wincedc;
@@ -136,7 +137,98 @@ int read_mbf_byte(int ascii)    {
     static int offset_metaid_netbsd = 1; // $%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~
     static int offset_metaid_libronin = 1; //ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789-
     static int offset_metaid_bor_tmnt = 1; //0123456789ABCDEF....Inf.NaN.0123456789abcdef....(null)...
+    
+    /*
+    'unscrambled binary string
+    sPunch = "portdev infoenblstatradrtoutdrqcfuncend"
+    sTetris = "abcdefghijklefghijklmnopqrstuvwxyz!@#$%^&*()"
+    sFISA = "warning: flash read error"
+    sVMUFrog = "vmufrog r1, by: the black frog,|http://www.theblackfrog.8m.com": sVMUFrog = Replace(sVMUFrog, "|", Chr(0))
+    sUnknown1 = "#...'...*...-.../...2...4...7...9...;...=...?...a...c...e...g...i...j...l...n...o...q...r...t...u...w...x...z...": sUnknown1 = Replace(sUnknown1, ".", Chr(0))
+    sUnknown2 = "0123456789abcdef....(null)..0123456789abcdef": sUnknown2 = Replace(sUnknown2, ".", Chr(0))
+    
+    If InStr(sFile, sKatana) > 0 Then
+        ScanBinary = Katana
+        Exit Function
+    End If
+    
+    If InStr(sFile, sWinCE) > 0 Then
+        ScanBinary = WinCE
+        Exit Function
+    End If
+    
+    If InStr(sFile, sNaomi) > 0 Then
+        ScanBinary = Naomi
+        Exit Function
+    End If
+    
+    If InStr(sFile, sABC & sNumber1) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
+    
+    If InStr(sFile, sABC & sNumber2) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
+    
+    If InStr(sFile, sNumber1 & sABC) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
+    
+    If InStr(sFile, sNumber2 & sABC) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
+    
+    If InStr(sFile, sDreamSNES) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
+    
+    If InStr(sFile, sBoR) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
+    
+    If InStr(sFile, sNetBSD) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
+    
+    If InStr(sFile, sTetris) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
+    
+    If InStr(sFile, sPunch) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
+    
+    If InStr(sFile, sFISA) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
+    
+    If InStr(sFile, sVMUFrog) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
+    
+    If InStr(sFile, sUnknown1) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
+    
+    If InStr(sFile, sUnknown2) > 0 Then
+        ScanBinary = unscrambled
+        Exit Function
+    End If
 
+    ScanBinary = scrambled
+*/
     if(ascii = asc(mid(string, offset_string, 1,)))
         if(offset_string = strlen(string))
             //unscrambled
@@ -157,7 +249,12 @@ enummbf read_mbf(char *mbf)	{
         return -1;
   
     size = ftell(pFile); 
- 
+
+    if(size < 1024)	{
+        mb.scrabmled = 0;
+ 	return 0;
+    }
+    
     for(i = 0; i < size; i++)  { 
 	fread(buffer, 1, 1, fp);
         mb.scambled = read_mbf_byte(buffer);
