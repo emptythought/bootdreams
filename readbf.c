@@ -117,7 +117,7 @@ int display_mr()	{
 
 /* TODO: get compiling and impl. unparsed banners */
 int read_mbf_byte(int ascii)    {
-    char kallistios; //KallistiOS0x201.1.6:0x20Sun0x20Jan0x20130x2023:12:020x20MST0x2020020x0A0x200x20bard@yuna.tucson.allusion.net:/home/bard/prj/releases-kos/kos-1.1.60x0A0x00
+    char kallistios;
     char katana;
     char naomi;
     char libronin
