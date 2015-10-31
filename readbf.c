@@ -21,6 +21,23 @@
 
 #include "readbf.h"
 
+/* 1st_read.bin File Checker - Visual Basic to C conversion
+LyingWake <lyingwake@gmail.com>
+http://www.consolevision.com/members/fackue
+
+Since Visual Basic is something most coders do not use
+and it's portability is not very friendly, I thought I 
+would start learning C by converting 1st_read.bin File 
+Checker from VB.  It's completly done, although there is 
+no scrambling or unscrambling.
+
+You can not run any arguments from this program.  So no
+checker_vb2c 1st_read.bin.  I haven't quite figured out
+how yet.
+
+I received a lot of help from JustBurn and GPF on EFnet 
+#dcemu. */
+
 int read_mr(char *mrf)	{
     FILE *fp;
     typemr mr;
