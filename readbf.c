@@ -40,7 +40,7 @@ I received a lot of help from JustBurn and GPF on EFnet
 
 int read_mr(char *mrf)	{
     FILE *fp;
-    typemr mr;
+    mr_t mr;
     int i = 0;
     int j = 0;
     int k = 0;
@@ -111,7 +111,7 @@ int read_mr(char *mrf)	{
 }
 
 int display_mr()	{
-    typemr mr;
+    mr_t mr;
     int i;
     int y0, y1 = 25;
     int x0, x1 = 50;
@@ -257,7 +257,7 @@ int read_mbf_byte(int ascii)    {
 enummbf read_mbf(char *mbf)	{
     int size;
     FILE *fp;
-    typembf mb;
+    mbf_t mb;
     char buffer;
     int i;
 	
@@ -394,7 +394,7 @@ int read_bsf_peripheral(int ascii, int *FLAG1, int *FLAG2, int *FLAG3,
 
 int read_bsf(char *bsf)	{
     FILE *fp;
-    typebsf bs;
+    bsf_t bs;
 
     fp = fopen(bsf, "r");
     if(!fp)
