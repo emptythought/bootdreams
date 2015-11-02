@@ -36,27 +36,17 @@ typedef enum {
     scrambled
 } enummbf;
 
-typedef struct {
-/* bs.instructor./
-bs.instructor.title
-bs.instructor.banner
-bs.mr.user./
-bs.mr.user.cache
-bs.mr.user.id
-bs.mr.user.offset
-bs.mr.user.width
-bs.mr.user.height
-bs.mr.user.colors
-bs.mr.user.bitmap.compressed
-bs.mr.user.bitmap.uncompressed
-bs.mr.user.bitmap.offset
-bs.mr.user.bitmap.palette
-bs.toc./
-bs.toc.*./
-bs.toc.*.type
-bs.toc.*.lba.start
-bs.toc.*.lba.end */
-    char mr[MR_USER_MAX_SIZE];
+typedef enum {
+    mc,
+    lienus,
+    sega,
+    echelon,
+    bleem!cast
+} enumbsf;
+
+struct mr   {
+    // ./ for presence
+    char cache[MR_USER_MAX_SIZE];
     char id[2];
     unsigned short size;
     char reserve_o1[6];
@@ -68,16 +58,20 @@ bs.toc.*.lba.end */
     char reserve_o4[6];
     unsigned short colors;
     char reserve_o5[2];
-    char palette[MR_MAX_COLORS * 4];
-    //struct bitmap_t *bitmap;
-} mr_t;
+    bitmap_t *bitmap;
+};
 
 stuct bitmap    {
+    unsigned short offset;
+    char palette[MR_MAX_COLORS * 4];
     char compressed[MR_USER_MAX_SIZE - 1];
     char uncompressed[MR_USER_WIDTH * MR_USER_HEIGHT];
-} bitmap_t;
+};
 
-typedef struct {
+struct bsf  {
+    //./ //0 = IP.BIN 1 = IP0000.BIN
+    //bs.instructor.title //mc, lienus, sega, bleem!cast, echelon
+    //bs.instructor.banner //KallistiOS, Katana, WinCE, Naomi
     char hardware_id[17]; /* always "SEGA SEGAKATANA " */
     char maker_id[17]; /* always "SEGA ENTERPRISES" */
     char checksum[5];
@@ -112,11 +106,21 @@ typedef struct {
     char boot_filname[17];
     char company_name[17];
     char software_name[129];
-    /*char mr_trademark[MR_TRADEMARK_SIZE];
-    char mr_sega[MR_SEGA_SIZE];
-    char mr_user[MR_USER_MAX_SIZE]; */
-    //struct mr_t *mr
-} typebsf;
+    /* bs.toc./
+    bs.toc.*./
+    bs.toc.*.type
+    bs.toc.*.lba.start
+    bs.toc.*.lba.end */
+    union {
+        mr_t trademark;
+        mr_t sega;
+        mr_t user;
+    } mr;
+};
+
+typedef struct mr mr_t
+typedef struct bitmap bitmap_t
+typedef struct bsf bsf_t
 
 enummbf read_mbf(char *mbf);
 int read_mr(char *mrf);
