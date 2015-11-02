@@ -69,9 +69,13 @@ bs.toc.*.lba.end */
     unsigned short colors;
     char reserve_o5[2];
     char palette[MR_MAX_COLORS * 4];
-    char bitmap[MR_USER_MAX_SIZE - 1];
-    char bitmap_expanded[MR_USER_WIDTH * MR_USER_HEIGHT];
-} typemr;
+    //struct bitmap_t *bitmap;
+} mr_t;
+
+stuct bitmap    {
+    char compressed[MR_USER_MAX_SIZE - 1];
+    char uncompressed[MR_USER_WIDTH * MR_USER_HEIGHT];
+} bitmap_t;
 
 typedef struct {
     char hardware_id[17]; /* always "SEGA SEGAKATANA " */
@@ -108,9 +112,10 @@ typedef struct {
     char boot_filname[17];
     char company_name[17];
     char software_name[129];
-    char mr_trademark[MR_TRADEMARK_SIZE];
+    /*char mr_trademark[MR_TRADEMARK_SIZE];
     char mr_sega[MR_SEGA_SIZE];
-    char mr_user[MR_USER_MAX_SIZE];
+    char mr_user[MR_USER_MAX_SIZE]; */
+    //struct mr_t *mr
 } typebsf;
 
 enummbf read_mbf(char *mbf);
